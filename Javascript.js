@@ -12,7 +12,7 @@ blockbackground.src = 'block-background.jpeg';
 var solved = ctx.createPattern(blockbackground,"no-repeat");
 
 var score;
-var highscore = 0;
+var highscore = getCookie(highscore);
 var errors;
 
 var minNumber=+document.getElementById("minNum").value; //= 1;
@@ -171,10 +171,27 @@ function checkResults() {
         restart();
     }
 }
+function setCookie(highscore) {
+    document.cookie = highscore + ";path=/";
+}
 
-
-
+function getCookie(highscore) {
+    var name = highscore+"=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 function main() {
+    setCookie();
     init();
     drawFields();
     checkResults();
