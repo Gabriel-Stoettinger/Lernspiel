@@ -4,208 +4,183 @@
     <link href="Style.css" type="text/css" rel="stylesheet">
     <meta charset="utf-8"/>
     <title>Rechenturm</title>
-   <!-- <style>
+    <!-- <style>
+          {
+             padding: 0;
+             margin: 0;
+         }
+         /*input
          {
-            padding: 0;
-            margin: 0;
-        }
+             background: transparent;
+             border: none;
+             position: absolute;
+             top: 10px;
+             left: 10px;
+         }*/
+         canvas {
+             background: #ffffff;
+             display: block;
+             margin: 0 auto;
+         }
 
-        /*input
-        {
-            background: transparent;
-            border: none;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-        }*/
+         /*Style_Christoph_startbox*/
+  .position
+ {
+     border-color: black;
+     border-style: solid;
+     border-width: medium;
 
-        canvas {
-            background: #ffffff;
-            display: block;
-            margin: 0 auto;
-        }
-        
-        /*Style_Christoph_startbox*/
- .position
-{
-    border-color: black;
-    border-style: solid;
-    border-width: medium;
-    
-    width: 400px;
-    height: 400px;
-    position:absolute;
-    right: 0;
-    top: 0;
-    
-    
-}
+     width: 400px;
+     height: 400px;
+     position:absolute;
+     right: 0;
+     top: 0;
 
 
-/*Play_button*/
+ }
+ /*Play_button*/
+ .play_button
+ {
 
-.play_button
-{
-    
-    background-color: #4CAF50;
-    font-size: 5;
+     background-color: #4CAF50;
+     font-size: 5;
 
-   
-    
-    height: 70px;
-    width: 200px;
-   
-    
-    
-    text-align: center;
-    display: table-cell;
-    vertical-align: middle;
-    font-size: 30px;
-    
-    
-    padding: 15px 25px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  box-shadow: 0 9px #999;
-    
-    
-    
-    
-    /*Nich markierbat*/
-    -ms-user-select: None;
- -moz-user-select: None;
- -webkit-user-select: None; 
-    
-    
-}
-.play_button:hover {background-color: #3e8e41}
 
-.play_button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
-  transform: translateY(4px);
-    
--ms-user-select: None;
- -moz-user-select: None;
- -webkit-user-select: None; 
-}
+     height: 70px;
+     width: 200px;
+
+
+
+     text-align: center;
+     display: table-cell;
+     vertical-align: middle;
+     font-size: 30px;
+
+
+     padding: 15px 25px;
+   text-align: center;
+   cursor: pointer;
+   outline: none;
+   color: #fff;
+   border: none;
+   border-radius: 25px;
+   box-shadow: 0 9px #999;
 
 
 
 
-/*End_Play_button*/
+     /*Nich markierbat*/
+     -ms-user-select: None;
+  -moz-user-select: None;
+  -webkit-user-select: None;
 
 
-/*General Table*/
+ }
+ .play_button:hover {background-color: #3e8e41}
+ .play_button:active {
+   background-color: #3e8e41;
+   box-shadow: 0 5px #666;
+   transform: translateY(4px);
 
-table
-{
-        background-color: aliceblue;
-    
-        border-style: solid;
-        border-width: 15px;
-        border-color: blue;
-    
-    font-size: 20px;
-}
-tr
-{
-    
-}
+ -ms-user-select: None;
+  -moz-user-select: None;
+  -webkit-user-select: None;
+ }
+ /*End_Play_button*/
+ /*General Table*/
+ table
+ {
+         background-color: aliceblue;
 
-td
-{
-}
+         border-style: solid;
+         border-width: 15px;
+         border-color: blue;
 
-/*End_General Table*/
+     font-size: 20px;
+ }
+ tr
+ {
+
+ }
+ td
+ {
+ }
+ /*End_General Table*/
+ .center
+ {
+ }
+ input
+ {
+     font-size: 20px;
+     width: 75px;
+ }
+       /*Ende Style Christoph*/
 
 
-
-
-.center
-{
-}
-input
-{
-    font-size: 20px;
-    width: 75px;
-}
-      /*Ende Style Christoph*/  
-        
-        
-    </style>-->
+     </style>-->
 
 </head>
 <body>
-    
-    
-       <!-- von Christoph(Startbox)-->
-    <div class="position" >
-      <div  align="center">
-      <table>
-          
-          <tr><p class="play_button">PLAY</p><br></tr>
-          <tr><br></tr>
-          <tr><td>Blockanzahl:</td>
-              <td><input type="number"  min="2" max="10" value="5" id="countblocks"></td>
-          </tr>
-          
-          <tr>
-              <td>kleinste Zahl: <!-- min number?--></td>
-              <td><input type="number" min="1" max="30" value="1" id="minNum"></td>
-          </tr>
-          
-          
-          <tr>
+
+
+<!-- von Christoph(Startbox)-->
+<div class="position" >
+    <div  align="center">
+        <table>
+
+            <tr><p class="play_button">PLAY</p><br></tr>
+            <tr><br></tr>
+            <tr><td>Blockanzahl:</td>
+                <td><input type="number"  min="2" max="10" value="5" id="countblocks"></td>
+            </tr>
+
+            <tr>
+                <td>kleinste Zahl: <!-- min number?--></td>
+                <td><input type="number" min="1" max="30" value="1" id="minNum"></td>
+            </tr>
+
+
+            <tr>
                 <td>größte Zahl:</td>
                 <td><input type="number" min="3" max="50" value="9" id="maxNum"></td>
-          </tr>
-          
-          </table></div></div>  
-            <!-- ENDE-von Christoph(Startbox)-->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+            </tr>
+
+        </table></div></div>
+<!-- ENDE-von Christoph(Startbox)-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <canvas id="myCanvas" width="720" height="480"></canvas>
-    
-        <script language="javascript" type="text/javascript" src="Javascript.js"></script>
+
+<script language="javascript" type="text/javascript" src="Javascript.js"></script>
 
 <!--<script>
     var canvas = document.getElementById("myCanvas");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight - 20;
     var ctx = canvas.getContext("2d");
-
     var countblocks = document.getElementById("countblocks").value;
     var col = countblocks;
     var fieldWidth = canvas.width / countblocks / 2;
     var fieldHeight = canvas.height / countblocks / 2;
-
     var score = 0;
     var highscore = 0;
     var errors = 0;
-
     var minNumber  = 1;
     var maxNumber = 9;
-
     document.addEventListener("mousedown", inputMouse, false);
-
     //todo:Abstand zwischen Blöcken - Joni
     var fields = [];
     for (rows = 0; rows < countblocks; rows++) {
@@ -228,7 +203,6 @@ input
         }
         col--;
     }
-
     function init() {
         countblocks = document.getElementById("countblocks").value;
         col = countblocks;
@@ -236,7 +210,6 @@ input
         canvas.height = window.innerHeight - 20;
         fieldWidth = canvas.width / countblocks / 2;
         fieldHeight = canvas.height / countblocks / 2;
-
         /*for (rows = 0; rows < countblocks; rows++) {
             for (columns = 0; columns < col; columns++) {
                 fields[rows][columns].x = canvas.width / 2 - (countblocks - rows) / 2 * fieldWidth + columns * fieldWidth;
@@ -245,7 +218,6 @@ input
             col--;
         }*/
     }
-
     function restart() {
         score = 0;
         errors = 0;
@@ -268,11 +240,9 @@ input
             col--;
         }
     }
-
     function getRandomNumber() {
         return Math.floor((Math.random() * maxNumber)) + minNumber;
     }
-
     //todo: Firefox, IE,
     function toggleFullscreen() {
         var element = document.getElementById("bild");
@@ -299,17 +269,14 @@ input
             }
         }
     }
-
     function drawScores() {
         ctx.font = "16px Verdana";
         ctx.fillStyle = "#000000";
         ctx.fillText("Score:\t" + score, 20, canvas.height - 50);
-
         ctx.font = "16px Verdana";
         ctx.fillStyle = "#000000";
         ctx.fillText("Highscore:\t" + highscore, 20, canvas.height - 25);
     }
-
     //todo: nur Zahlen eingeben
     function inputMouse(e) {
         var x = e.clientX - canvas.offsetLeft;
@@ -327,7 +294,6 @@ input
             col--;
         }
     }
-
     //todo: centered - Joni
     function drawFields() {
         for (rows = 0; rows < countblocks; rows++) {
@@ -343,7 +309,6 @@ input
                 ctx.stroke();
                 ctx.fill();
                 ctx.closePath();
-
                 //todo: Zahlen nicht zentriert
                 if (fields[rows][columns].input !== 0) {
                     ctx.font = "16px Verdana";
@@ -354,7 +319,6 @@ input
             col--;
         }
     }
-
     function checkResults() {
         col = countblocks;
         var i=0;
@@ -379,7 +343,6 @@ input
             restart();
         }
     }
-
     function main() {
         init();
         drawFields();
@@ -388,7 +351,6 @@ input
         drawScores();
         requestAnimationFrame(main);
     }
-
     main();
 </script>-->
 
