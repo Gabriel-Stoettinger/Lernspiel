@@ -7,6 +7,9 @@
     var col = countblocks;
     var fieldWidth = canvas.width / countblocks / 2;
     var fieldHeight = canvas.height / countblocks / 2;
+    var blockbackground = new Image();
+    blockbackground.src = 'block-background.jpeg';
+    var solved = ctx.createPattern(blockbackground,"no-repeat");
 
     var score;
     var highscore = 0;
@@ -126,7 +129,8 @@
                 ctx.rect(fields[rows][columns].x, fields[rows][columns].y, fieldWidth, fieldHeight);
                 ctx.fillStyle = "#ffa500";
                 if (fields[rows][columns].status === 1) {
-                    ctx.fillStyle = "#9acd32";
+                    //ctx.fillStyle = "#9acd32";
+                    ctx.fillStyle = solved;
                 }
                 ctx.lineWidth = 5;
                 ctx.strokeStyle = "grey";
