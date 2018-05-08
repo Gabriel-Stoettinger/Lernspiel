@@ -1,0 +1,119 @@
+
+        canvas {
+            background: #ffffff;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        /*Style_Christoph_startbox*/
+ .position
+{
+    border-color: black;
+    border-style: solid;
+    border-width: medium;
+    
+    width: 300px;
+    height: 300px;
+    position:absolute;
+    right: 0;
+    top: 0;
+    
+    
+}
+
+
+/*Play_button*/
+
+.play_button
+{
+    
+    background-color: #4CAF50;
+    font-size: 5;
+
+   
+    
+    height: 70px;
+    width: 200px;
+   
+    
+    
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 30px;
+    
+    
+    padding: 15px 25px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 9px #999;
+    
+    
+    
+    
+    /*Nich markierbat*/
+    -ms-user-select: None;
+ -moz-user-select: None;
+ -webkit-user-select: None; 
+    
+    
+}
+.play_button:hover {background-color: #3e8e41}
+
+.play_button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+    
+-ms-user-select: None;
+ -moz-user-select: None;
+ -webkit-user-select: None; 
+}
+
+
+
+
+/*End_Play_button*/
+
+
+/*General Table*/
+
+table
+{
+        background-color: aliceblue;
+    
+        border-style: solid;
+        border-width: 15px;
+        border-color: blue;
+    
+    font-size: 20px;
+}
+tr
+{
+    
+}
+
+td
+{
+}
+
+/*End_General Table*/
+
+
+
+
+.center
+{
+}
+input
+{
+    font-size: 20px;
+    width: 75px;
+}
+      /*Ende Style Christoph*/  
+        
+        
