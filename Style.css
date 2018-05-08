@@ -1,9 +1,13 @@
 
         canvas {
-            background-image: url("Hintergrund.jpg");
             display: block;
             margin: 0 auto;
         }
+
+ body
+ {
+     background-image: url("Hintergrund.jpg");
+ }
         
         /*Style_Christoph_startbox*/
  .position
