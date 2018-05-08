@@ -1,12 +1,11 @@
-
-        canvas {
+  canvas {
             display: block;
             margin: 0 auto;
         }
 
  body
  {
-     background-image: url("Hintergrund.jpg");
+     background-image: url("bilder/Hintergrund.jpg");
  }
         
         /*Style_Christoph_startbox*/
@@ -31,7 +30,7 @@
 .play_button
 {
     
-    background-color: #4CAF50;
+    background: url(bilder/spitze.jpg) no-repeat;
     font-size: 5;
 
    
@@ -53,8 +52,8 @@
   outline: none;
   color: #fff;
   border: none;
-  border-radius: 25px;
-  box-shadow: 0 9px #999;
+  border-radius: 10px;
+  box-shadow: 0 9px #fff;
     
     
     
@@ -66,11 +65,12 @@
     
     
 }
-.play_button:hover {background-color: #3e8e41}
+
+.play_button:hover { background: url(bilder/grundblock.jpg) no-repeat;}
 
 .play_button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px #666;
+  background: url(bilder/grundblock.jpg) no-repeat;
+  box-shadow: 0 5px white;
   transform: translateY(4px);
     
 -ms-user-select: None;
@@ -88,11 +88,11 @@
 
 table
 {
-        background-color: aliceblue;
+        background: url(bilder/spitze.jpg) no-repeat;
     
         border-style: solid;
-        border-width: 15px;
-        border-color: blue;
+        border-width: 10px;
+        border-color: white;
     
     font-size: 20px;
 }
@@ -106,6 +106,19 @@ td
 }
 
 /*End_General Table*/
+
+
+
+
+.center
+{
+}
+input
+{
+    font-size: 20px;
+    width: 75px;
+}
+      /*Ende Style Christoph*/  
 
 
 
