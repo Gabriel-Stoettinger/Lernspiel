@@ -12,11 +12,7 @@ blockbackground.src = 'block-background.jpeg';
 var solved = ctx.createPattern(blockbackground, "no-repeat");
 
 var score;
-var highscore =0;
-if (document.cookie)
-{
-    highscore=checkCookie();
-}
+var highscore = getCookie(highscore);
 var errors;
 
 var minNumber = +document.getElementById("minNum").value; //= 1;
@@ -175,45 +171,102 @@ function checkResults() {
     }
     if (i == 0) {
         alert('Sie sind ein Gewinner!!!');
+        //draw();
         restart();
     }
 }
 
-var record = 100;
+function setCookie(highscore) {
+    document.cookie = highscore + ";path=/";
+}
 
-
-
-function getCookie(c_name)
-{
-    var c_start;
-    var c_end;
-    if (document.cookie.length > 0) {
-        c_start = document.cookie.indexOf(c_name + "=");
-        if (c_start != -1) {
-            c_start = c_start + c_name.length + 1;
-            c_end = document.cookie.indexOf(";", c_start);
-            if (c_end == -1) c_end = document.cookie.length
-            return unescape(document.cookie.substring(c_start, c_end));
+function getCookie(highscore) {
+    var name = highscore+"=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
         }
     }
     return "";
 }
 
+let confetti = document.getElementById('confetti');
+let conf = confetti.getContext('2d');
+confetti.width = canvas.width;
+confetti.height = canvas.height;
+let pieces = [];
+let numberOfPieces = 50;
+let lastUpdateTime = Date.now();
 
-function setCookie(c_name,value,expiredays)
-{
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate()+expiredays);
-    document.cookie=c_name+ "=" +escape(value)+((expiredays==null) ? "" : "; expires="+exdate.toUTCString());
+function randomColor () {
+    let colors = ['#f00', '#0f0', '#00f', '#0ff', '#f0f', '#ff0'];
+    return colors[Math.floor(Math.random() * colors.length)];
 }
 
-function checkCookie()
-{
-    recordi=getCookie('hightscore');
+function update () {
+    let now = Date.now(),
+        dt = now - lastUpdateTime;
+
+    for (let i = pieces.length - 1; i >= 0; i--) {
+        let p = pieces[i];
+
+        if (p.y > confetti.height) {
+            pieces.splice(i, 1);
+            continue;
+        }
+
+        p.y += p.gravity * dt;
+        p.rotation += p.rotationSpeed * dt;
+    }
+
+
+    while (pieces.length < numberOfPieces) {
+        pieces.push(new Piece(Math.random() * confetti.width, -20));
+    }
+
+    lastUpdateTime = now;
+
+    setTimeout(update, 1);
 }
 
+function draw () {
+    conf.clearRect(0, 0, confetti.width, confetti.height);
 
+    pieces.forEach(function (p) {
+        conf.save();
 
+        conf.fillStyle = p.color;
+
+        conf.translate(p.x + p.size / 2, p.y + p.size / 2);
+        conf.rotate(p.rotation);
+
+        conf.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+
+        conf.restore();
+    });
+
+    requestAnimationFrame(draw);
+}
+
+function Piece (x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = (Math.random() * 0.5 + 0.75) * 15;
+    this.gravity = (Math.random() * 0.5 + 0.75) * 0.1;
+    this.rotation = (Math.PI * 2) * Math.random();
+    this.rotationSpeed = (Math.PI * 2) * (Math.random() - 0.5) * 0.001;
+    this.color = randomColor();
+}
+
+while (pieces.length < numberOfPieces) {
+    pieces.push(new Piece(Math.random() * confetti.width, Math.random() * confetti.height));
+}
 
 function main() {
 
@@ -222,7 +275,7 @@ function main() {
     checkResults();
     drawScores();
     requestAnimationFrame(main);
-    getCookie();
+    setCookie(highscore);
 }
 
 restart();
