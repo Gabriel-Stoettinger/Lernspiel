@@ -9,14 +9,14 @@ var fieldWidth = canvas.width / countblocks / 2;
 var fieldHeight = canvas.height / countblocks / 2;
 var blockbackground = new Image();
 blockbackground.src = 'block-background.jpeg';
-var solved = ctx.createPattern(blockbackground,"no-repeat");
+var solved = ctx.createPattern(blockbackground, "no-repeat");
 
 var score;
 var highscore = 0;
 var errors;
 
-var minNumber=+document.getElementById("minNum").value; //= 1;
-var maxNumber=+document.getElementById("maxNum").value;
+var minNumber = +document.getElementById("minNum").value; //= 1;
+var maxNumber = +document.getElementById("maxNum").value;
 
 document.addEventListener("mousedown", inputMouse, false);
 
@@ -27,17 +27,19 @@ function init() {
     countblocks = document.getElementById("countblocks").value;
     col = countblocks;
     canvas.width = window.innerWidth - 17;
-    canvas.height = window.innerHeight-17;
+    canvas.height = window.innerHeight - 17;
     fieldWidth = canvas.width / countblocks / 2;
     fieldHeight = canvas.height / countblocks / 2;
 
-    /*for (rows = 0; rows < countblocks; rows++) {
+    col = countblocks;
+    for (rows = 0; rows < countblocks; rows++) {
         for (columns = 0; columns < col; columns++) {
-            fields[rows][columns].x = canvas.width / 2 - (countblocks - rows) / 2 * fieldWidth + columns * fieldWidth;
-            fields[rows][columns].y = canvas.height / 2 + fieldHeight * countblocks / 3 - (fieldHeight + 2) * rows;
+            fields[rows][columns].x = canvas.width / 3 - (countblocks - rows) / 2 * (fieldWidth) + columns * fieldWidth;
+            fields[rows][columns].y = canvas.height / 2.3 + fieldHeight * countblocks / 3 - (fieldHeight + 2) * rows
         }
         col--;
-    }*/
+    }
+    col = countblocks;
 }
 
 function restart() {
@@ -68,7 +70,7 @@ function restart() {
 }
 
 function getRandomNumber() {
-    return (0+Math.floor((Math.random() * maxNumber))+minNumber);
+    return (0 + Math.floor((Math.random() * maxNumber)) + minNumber);
 }
 
 //todo:
@@ -88,6 +90,7 @@ function drawScores() {
     ctx.fillStyle = "#000000";
     ctx.fillText("Highscore:\t" + highscore, 20, canvas.height - 25);
 }
+
 //todo: nur Zahlen eingeben
 function inputMouse(e) {
     var x = e.clientX - canvas.offsetLeft;
@@ -100,9 +103,9 @@ function inputMouse(e) {
         for (columns = 0; columns < col; columns++) {
             if (x > fields[rows][columns].x && x < fields[rows][columns].x + fieldWidth) {
                 if (y > fields[rows][columns].y && y < fields[rows][columns].y + fieldHeight) {
-                    input=window.prompt("Geben Sie eine Zahl ein");
+                    input = window.prompt("Geben Sie eine Zahl ein");
                     if (input != null && input != true) {
-                        if(isNaN(input)==false)
+                        if (isNaN(input) == false)
                             fields[rows][columns].input = Number(input);
                         if (fields[rows][columns].input != fields[rows][columns].result) {
                             errors++;
@@ -171,7 +174,6 @@ function checkResults() {
         restart();
     }
 }
-
 
 
 function main() {
