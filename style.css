@@ -1,0 +1,121 @@
+  canvas {
+            display: block;
+            margin: 0 auto;
+        }
+
+ body
+ {
+     background-image: url("bilder/Hintergrund.jpg");
+ }
+        
+        /*Style_Christoph_startbox*/
+ .position
+{
+    border-color: black;
+    border-style: solid;
+    border-width: medium;
+    
+    width: 300px;
+    height: 300px;
+    position:absolute;
+    right: 0;
+    top: 0;
+    
+    
+}
+
+
+/*Play_button*/
+
+.play_button
+{
+    
+    background: url(bilder/spitze.jpg) no-repeat;
+    font-size: 5;
+
+   
+    
+    height: 70px;
+    width: 200px;
+   
+    
+    
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 30px;
+    
+    
+    padding: 15px 25px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px #fff;
+    
+    
+    
+    
+    /*Nich markierbat*/
+    -ms-user-select: None;
+ -moz-user-select: None;
+ -webkit-user-select: None; 
+    
+    
+}
+
+.play_button:hover { background: url(bilder/grundblock.jpg) no-repeat;}
+
+.play_button:active {
+  background: url(bilder/grundblock.jpg) no-repeat;
+  box-shadow: 0 5px white;
+  transform: translateY(4px);
+    
+-ms-user-select: None;
+ -moz-user-select: None;
+ -webkit-user-select: None; 
+}
+
+
+
+
+/*End_Play_button*/
+
+
+/*General Table*/
+
+table
+{
+        background: url(bilder/spitze.jpg) no-repeat;
+    
+        border-style: solid;
+        border-width: 10px;
+        border-color: white;
+    
+    font-size: 20px;
+}
+tr
+{
+    
+}
+
+td
+{
+}
+
+/*End_General Table*/
+
+
+
+
+.center
+{
+}
+input
+{
+    font-size: 20px;
+    width: 75px;
+}
+      /*Ende Style Christoph*/  
