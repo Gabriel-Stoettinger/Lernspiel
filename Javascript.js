@@ -13,6 +13,8 @@ var solved = ctx.createPattern(blockbackground, "no-repeat");
 
 var score;
 var highscore = getCookie(highscore);
+if(highscore == "")
+    highscore = 0;
 var errors;
 
 var minNumber = +document.getElementById("minNum").value; //= 1;
@@ -35,7 +37,7 @@ function init() {
     for (rows = 0; rows < countblocks; rows++) {
         for (columns = 0; columns < col; columns++) {
             fields[rows][columns].x = canvas.width / 3 - (countblocks - rows) / 2 * (fieldWidth) + columns * fieldWidth;
-            fields[rows][columns].y = canvas.height / 2.3 + fieldHeight * countblocks / 3 - (fieldHeight + 2) * rows
+            fields[rows][columns].y = canvas.height / 2.3 + fieldHeight * countblocks / 3 - (fieldHeight + 3) * rows
         }
         col--;
     }
@@ -196,7 +198,7 @@ function getCookie(highscore) {
     return "";
 }
 
-let confetti = document.getElementById('confetti');
+/*let confetti = document.getElementById('confetti');
 let conf = confetti.getContext('2d');
 confetti.width = canvas.width;
 confetti.height = canvas.height;
@@ -266,16 +268,17 @@ function Piece (x, y) {
 
 while (pieces.length < numberOfPieces) {
     pieces.push(new Piece(Math.random() * confetti.width, Math.random() * confetti.height));
-}
+}*/
 
 function main() {
-
     init();
     drawFields();
     checkResults();
+    setCookie(highscore);
     drawScores();
     requestAnimationFrame(main);
-    setCookie(highscore);
+    //todo: Gabs dreschn
+    //setCookie(highscore);
 }
 
 restart();
