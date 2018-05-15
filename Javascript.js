@@ -13,9 +13,14 @@ var solved = ctx.createPattern(blockbackground, "no-repeat");
 
 var score;
 var highscore = getCookie(highscore);
-if(highscore == "")
+if (highscore == "")
     highscore = 0;
 var errors;
+
+var confetti;
+let pieces = [];
+let numberOfPieces = 100;
+let lastUpdateTime = Date.now();
 
 var minNumber = +document.getElementById("minNum").value; //= 1;
 var maxNumber = +document.getElementById("maxNum").value;
@@ -45,6 +50,7 @@ function init() {
 }
 
 function restart() {
+    confetti = 0;
     score = 0;
     errors = 0;
     col = countblocks;
@@ -78,6 +84,69 @@ function getRandomNumber() {
 //todo:
 function fullscreen() {
 }
+
+function randomColor() {
+    let colors = ['#f00', '#0f0', '#00f', '#0ff', '#f0f', '#ff0'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+//todo:Confetti
+function update() {
+    let now = Date.now(),
+        dt = now - lastUpdateTime;
+
+    for (let i = pieces.length - 1; i >= 0; i--) {
+        let p = pieces[i];
+
+        if (p.y > canvas.height) {
+            pieces.splice(i, 1);
+            continue;
+        }
+
+        p.y += p.gravity * dt;
+        p.rotation += p.rotationSpeed * dt;
+    }
+
+
+    while (pieces.length < numberOfPieces) {
+        pieces.push(new Piece(Math.random() * canvas.width, -20));
+    }
+
+    lastUpdateTime = now;
+
+    setTimeout(update, 1);
+}
+
+function draw() {
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    pieces.forEach(function (p) {
+        ctx.save();
+
+        ctx.fillStyle = p.color;
+
+        ctx.translate(p.x + p.size / 2, p.y + p.size / 2);
+        ctx.rotate(p.rotation);
+
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+
+        ctx.restore();
+    });
+
+    requestAnimationFrame(draw);
+}
+
+function Piece(x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = (Math.random() * 0.5 + 0.75) * 15;
+    this.gravity = (Math.random() * 0.5 + 0.75) * 0.1;
+    this.rotation = (Math.PI * 2) * Math.random();
+    this.rotationSpeed = (Math.PI * 2) * (Math.random() - 0.5) * 0.001;
+    this.color = randomColor();
+}
+
+//Ende Confetti
 
 function drawScores() {
     ctx.font = "16px Verdana";
@@ -171,10 +240,9 @@ function checkResults() {
         }
         col--;
     }
-    if (i == 0) {
+    if (i == 0 && confetti == 0) {
         alert('Sie sind ein Gewinner!!!');
-        //draw();
-        restart();
+        confetti = 1;
     }
 }
 
@@ -183,10 +251,10 @@ function setCookie(highscore) {
 }
 
 function getCookie(highscore) {
-    var name = highscore+"=";
+    var name = highscore + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
+    for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
@@ -198,86 +266,24 @@ function getCookie(highscore) {
     return "";
 }
 
-/*let confetti = document.getElementById('confetti');
-let conf = confetti.getContext('2d');
-confetti.width = canvas.width;
-confetti.height = canvas.height;
-let pieces = [];
-let numberOfPieces = 50;
-let lastUpdateTime = Date.now();
-
-function randomColor () {
-    let colors = ['#f00', '#0f0', '#00f', '#0ff', '#f0f', '#ff0'];
-    return colors[Math.floor(Math.random() * colors.length)];
-}
-
-function update () {
-    let now = Date.now(),
-        dt = now - lastUpdateTime;
-
-    for (let i = pieces.length - 1; i >= 0; i--) {
-        let p = pieces[i];
-
-        if (p.y > confetti.height) {
-            pieces.splice(i, 1);
-            continue;
-        }
-
-        p.y += p.gravity * dt;
-        p.rotation += p.rotationSpeed * dt;
-    }
-
-
-    while (pieces.length < numberOfPieces) {
-        pieces.push(new Piece(Math.random() * confetti.width, -20));
-    }
-
-    lastUpdateTime = now;
-
-    setTimeout(update, 1);
-}
-
-function draw () {
-    conf.clearRect(0, 0, confetti.width, confetti.height);
-
-    pieces.forEach(function (p) {
-        conf.save();
-
-        conf.fillStyle = p.color;
-
-        conf.translate(p.x + p.size / 2, p.y + p.size / 2);
-        conf.rotate(p.rotation);
-
-        conf.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-
-        conf.restore();
-    });
-
-    requestAnimationFrame(draw);
-}
-
-function Piece (x, y) {
-    this.x = x;
-    this.y = y;
-    this.size = (Math.random() * 0.5 + 0.75) * 15;
-    this.gravity = (Math.random() * 0.5 + 0.75) * 0.1;
-    this.rotation = (Math.PI * 2) * Math.random();
-    this.rotationSpeed = (Math.PI * 2) * (Math.random() - 0.5) * 0.001;
-    this.color = randomColor();
-}
-
-while (pieces.length < numberOfPieces) {
-    pieces.push(new Piece(Math.random() * confetti.width, Math.random() * confetti.height));
-}*/
-
 function main() {
     init();
     drawFields();
     checkResults();
     setCookie(highscore);
     drawScores();
+
+    //todo: laggy
+    if (confetti) {
+        while (pieces.length < numberOfPieces) {
+            pieces.push(new Piece(Math.random() * canvas.width, Math.random() * canvas.height));
+        }
+        update();
+        draw();
+    }
     requestAnimationFrame(main);
-    //todo: Gabs dreschn
+    //setInterval(main(),100);
+    //todo: Gabs dreschnö
     //setCookie(highscore);
 }
 
