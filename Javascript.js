@@ -17,10 +17,10 @@ if (highscore == "")
     highscore = 0;
 var errors;
 
-var confetti;
+/*var confetti;
 let pieces = [];
 let numberOfPieces = 100;
-let lastUpdateTime = Date.now();
+let lastUpdateTime = Date.now();*/
 
 var minNumber = +document.getElementById("minNum").value; //= 1;
 var maxNumber = +document.getElementById("maxNum").value;
@@ -50,7 +50,7 @@ function init() {
 }
 
 function restart() {
-    confetti = 0;
+    //confetti = 0;
     score = 0;
     errors = 0;
     col = countblocks;
@@ -78,7 +78,7 @@ function restart() {
 }
 
 function getRandomNumber() {
-    return (0 + Math.floor((Math.random() * maxNumber)) + minNumber);
+    return (Math.floor((Math.random() * maxNumber)) + minNumber);
 }
 
 //todo:
@@ -91,7 +91,7 @@ function randomColor() {
 }
 
 //todo:Confetti
-function update() {
+/*function update() {
     let now = Date.now(),
         dt = now - lastUpdateTime;
 
@@ -115,9 +115,9 @@ function update() {
     lastUpdateTime = now;
 
     setTimeout(update, 1);
-}
+}*/
 
-function draw() {
+/*function draw() {
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     pieces.forEach(function (p) {
@@ -134,9 +134,9 @@ function draw() {
     });
 
     requestAnimationFrame(draw);
-}
+}*/
 
-function Piece(x, y) {
+/*function Piece(x, y) {
     this.x = x;
     this.y = y;
     this.size = (Math.random() * 0.5 + 0.75) * 15;
@@ -144,7 +144,7 @@ function Piece(x, y) {
     this.rotation = (Math.PI * 2) * Math.random();
     this.rotationSpeed = (Math.PI * 2) * (Math.random() - 0.5) * 0.001;
     this.color = randomColor();
-}
+}*/
 
 //Ende Confetti
 
@@ -242,7 +242,7 @@ function checkResults() {
     }
     if (i == 0 && confetti == 0) {
         alert('Sie sind ein Gewinner!!!');
-        confetti = 1;
+        //confetti = 1;
     }
 }
 
@@ -273,6 +273,7 @@ function main() {
     setCookie(highscore);
     drawScores();
 
+    /*
     //todo: laggy
     if (confetti) {
         while (pieces.length < numberOfPieces) {
@@ -280,11 +281,8 @@ function main() {
         }
         update();
         draw();
-    }
+    }*/
     requestAnimationFrame(main);
-    //setInterval(main(),100);
-    //todo: Gabs dreschnö
-    //setCookie(highscore);
 }
 
 restart();
