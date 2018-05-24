@@ -162,13 +162,11 @@ function drawScores() {
     ctx.fillText("Highscore:\t" + highscore, 20, canvas.height - 25);
 }
 
-//todo: nur Zahlen eingeben
 function inputMouse(e) {
     var x = e.clientX - canvas.offsetLeft;
     var y = e.clientY - canvas.offsetTop;
 
     var input;
-    //alert(x + "  " + y);
     col = countblocks;
     for (rows = 0; rows < countblocks; rows++) {
         for (columns = 0; columns < col; columns++) {
@@ -194,7 +192,6 @@ function inputMouse(e) {
     }
 }
 
-//todo: centered - Joni
 function drawFields() {
     col = countblocks;
     for (rows = 0; rows < countblocks; rows++) {
@@ -204,7 +201,8 @@ function drawFields() {
             ctx.fillStyle = "#ffa500";
             if (fields[rows][columns].status === 1) {
                 //ctx.fillStyle = "#9acd32";
-                ctx.fillStyle = solved;
+                //todo: color of solved blocks
+                ctx.fillStyle = "#9acd32";
             }
             ctx.lineWidth = 5;
             ctx.strokeStyle = "grey";
@@ -212,7 +210,6 @@ function drawFields() {
             ctx.fill();
             ctx.closePath();
 
-            //todo: Zahlen nicht zentriert
             if (fields[rows][columns].input !== 0) {
                 ctx.font = "16px Verdana";
                 ctx.fillStyle = "#000000";
