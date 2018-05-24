@@ -12,8 +12,11 @@ blockbackground.src = 'block-background.jpeg';
 var solved = ctx.createPattern(blockbackground, "no-repeat");
 
 var score;
-var highscore = 0;
-var high = document.cookie;
+var highscore =0;
+if (document.cookie)
+{
+    highscore=checkCookie();
+}
 var errors;
 
 var minNumber = +document.getElementById("minNum").value; //= 1;
@@ -165,7 +168,6 @@ function checkResults() {
                     score++;
                     if (score > highscore)
                         highscore = score;
-                        high=document.cookie = "highscore="+highscore+"; expires=Fri, 31 Dec 2100 12:00:00 UTC; path=/";
                 }
             }
         }
@@ -180,14 +182,47 @@ function checkResults() {
 var record = 100;
 
 
+
+function getCookie(c_name)
+{
+    var c_start;
+    var c_end;
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) c_end = document.cookie.length
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
+}
+
+
+function setCookie(c_name,value,expiredays)
+{
+    var exdate=new Date();
+    exdate.setDate(exdate.getDate()+expiredays);
+    document.cookie=c_name+ "=" +escape(value)+((expiredays==null) ? "" : "; expires="+exdate.toUTCString());
+}
+
+function checkCookie()
+{
+    recordi=getCookie('hightscore');
+}
+
+
+
+
 function main() {
-        alert(high);
+
     init();
     drawFields();
     checkResults();
     drawScores();
     requestAnimationFrame(main);
-
+    getCookie();
 }
 
 restart();
