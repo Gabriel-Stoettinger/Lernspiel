@@ -12,12 +12,15 @@ blockbackground.src = 'block-background.jpeg';
 var solved = ctx.createPattern(blockbackground, "no-repeat");
 
 var score;
-var highscore =0;
-if (document.cookie)
-{
-    highscore=checkCookie();
-}
+var highscore = getCookie(highscore);
+if (highscore == "")
+    highscore = 0;
 var errors;
+
+/*var confetti;
+let pieces = [];
+let numberOfPieces = 100;
+let lastUpdateTime = Date.now();*/
 
 var minNumber = +document.getElementById("minNum").value; //= 1;
 var maxNumber = +document.getElementById("maxNum").value;
@@ -39,7 +42,7 @@ function init() {
     for (rows = 0; rows < countblocks; rows++) {
         for (columns = 0; columns < col; columns++) {
             fields[rows][columns].x = canvas.width / 3 - (countblocks - rows) / 2 * (fieldWidth) + columns * fieldWidth;
-            fields[rows][columns].y = canvas.height / 2.3 + fieldHeight * countblocks / 3 - (fieldHeight + 2) * rows
+            fields[rows][columns].y = canvas.height / 2.3 + fieldHeight * countblocks / 3 - (fieldHeight + 3) * rows
         }
         col--;
     }
@@ -47,6 +50,7 @@ function init() {
 }
 
 function restart() {
+    //confetti = 0;
     score = 0;
     errors = 0;
     col = countblocks;
@@ -60,7 +64,7 @@ function restart() {
                 status: 0,
                 input: 0
             };
-            if (rows == 0) {
+            if (rows === 0) {
                 fields[rows][columns].result = getRandomNumber();
                 fields[rows][columns].input = fields[rows][columns].result;
                 fields[rows][columns].status = 1;
@@ -74,12 +78,75 @@ function restart() {
 }
 
 function getRandomNumber() {
-    return (0 + Math.floor((Math.random() * maxNumber)) + minNumber);
+    return (Math.floor((Math.random() * maxNumber)) + minNumber);
 }
 
 //todo:
 function fullscreen() {
 }
+
+function randomColor() {
+    let colors = ['#f00', '#0f0', '#00f', '#0ff', '#f0f', '#ff0'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+//todo:Confetti
+/*function update() {
+    let now = Date.now(),
+        dt = now - lastUpdateTime;
+
+    for (let i = pieces.length - 1; i >= 0; i--) {
+        let p = pieces[i];
+
+        if (p.y > canvas.height) {
+            pieces.splice(i, 1);
+            continue;
+        }
+
+        p.y += p.gravity * dt;
+        p.rotation += p.rotationSpeed * dt;
+    }
+
+
+    while (pieces.length < numberOfPieces) {
+        pieces.push(new Piece(Math.random() * canvas.width, -20));
+    }
+
+    lastUpdateTime = now;
+
+    setTimeout(update, 1);
+}*/
+
+/*function draw() {
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    pieces.forEach(function (p) {
+        ctx.save();
+
+        ctx.fillStyle = p.color;
+
+        ctx.translate(p.x + p.size / 2, p.y + p.size / 2);
+        ctx.rotate(p.rotation);
+
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+
+        ctx.restore();
+    });
+
+    requestAnimationFrame(draw);
+}*/
+
+/*function Piece(x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = (Math.random() * 0.5 + 0.75) * 15;
+    this.gravity = (Math.random() * 0.5 + 0.75) * 0.1;
+    this.rotation = (Math.PI * 2) * Math.random();
+    this.rotationSpeed = (Math.PI * 2) * (Math.random() - 0.5) * 0.001;
+    this.color = randomColor();
+}*/
+
+//Ende Confetti
 
 function drawScores() {
     ctx.font = "16px Verdana";
@@ -108,14 +175,14 @@ function inputMouse(e) {
             if (x > fields[rows][columns].x && x < fields[rows][columns].x + fieldWidth) {
                 if (y > fields[rows][columns].y && y < fields[rows][columns].y + fieldHeight) {
                     input = window.prompt("Geben Sie eine Zahl ein");
-                    if (input != null && input != true) {
-                        if (isNaN(input) == false)
+                    if (input != null && input !== true) {
+                        if (isNaN(input) === false)
                             fields[rows][columns].input = Number(input);
-                        if (fields[rows][columns].input != fields[rows][columns].result) {
+                        if (fields[rows][columns].input !== fields[rows][columns].result) {
                             errors++;
                             if (score > 0)
                                 score--;
-                            if (errors == 3) {
+                            if (errors === 3) {
                                 alert("Drei Fehler! Du hast verloren :(");
                             }
                         }
@@ -127,7 +194,6 @@ function inputMouse(e) {
     }
 }
 
-//todo: centered - Joni
 function drawFields() {
     col = countblocks;
     for (rows = 0; rows < countblocks; rows++) {
@@ -136,8 +202,8 @@ function drawFields() {
             ctx.rect(fields[rows][columns].x, fields[rows][columns].y, fieldWidth, fieldHeight);
             ctx.fillStyle = "#ffa500";
             if (fields[rows][columns].status === 1) {
-                //ctx.fillStyle = "#9acd32";
-                ctx.fillStyle = solved;
+                //todo: color of solved blocks
+                ctx.fillStyle = "#9acd32";
             }
             ctx.lineWidth = 5;
             ctx.strokeStyle = "grey";
@@ -145,7 +211,6 @@ function drawFields() {
             ctx.fill();
             ctx.closePath();
 
-            //todo: Zahlen nicht zentriert
             if (fields[rows][columns].input !== 0) {
                 ctx.font = "16px Verdana";
                 ctx.fillStyle = "#000000";
@@ -161,9 +226,9 @@ function checkResults() {
     var i = 0;
     for (rows = 0; rows < countblocks; rows++) {
         for (columns = 0; columns < col; columns++) {
-            if (fields[rows][columns].status == 0) {
+            if (fields[rows][columns].status === 0) {
                 i++;
-                if (fields[rows][columns].input == fields[rows][columns].result) {
+                if (fields[rows][columns].input === fields[rows][columns].result) {
                     fields[rows][columns].status = 1;
                     score++;
                     if (score > highscore)
@@ -173,56 +238,50 @@ function checkResults() {
         }
         col--;
     }
-    if (i == 0) {
+    if (i === 0 && confetti === 0) {
         alert('Sie sind ein Gewinner!!!');
+        //confetti = 1;
         restart();
     }
 }
 
-var record = 100;
+function setCookie(highscore) {
+    document.cookie = highscore + ";path=/";
+}
 
-
-
-function getCookie(c_name)
-{
-    var c_start;
-    var c_end;
-    if (document.cookie.length > 0) {
-        c_start = document.cookie.indexOf(c_name + "=");
-        if (c_start != -1) {
-            c_start = c_start + c_name.length + 1;
-            c_end = document.cookie.indexOf(";", c_start);
-            if (c_end == -1) c_end = document.cookie.length
-            return unescape(document.cookie.substring(c_start, c_end));
+function getCookie(highscore) {
+    var name = highscore + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) === 0) {
+            return c.substring(name.length, c.length);
         }
     }
     return "";
 }
 
-
-function setCookie(c_name,value,expiredays)
-{
-    var exdate=new Date();
-    exdate.setDate(exdate.getDate()+expiredays);
-    document.cookie=c_name+ "=" +escape(value)+((expiredays==null) ? "" : "; expires="+exdate.toUTCString());
-}
-
-function checkCookie()
-{
-    recordi=getCookie('hightscore');
-}
-
-
-
-
 function main() {
-
     init();
     drawFields();
     checkResults();
+    setCookie(highscore);
     drawScores();
+
+    /*
+    //todo: laggy
+    if (confetti) {
+        while (pieces.length < numberOfPieces) {
+            pieces.push(new Piece(Math.random() * canvas.width, Math.random() * canvas.height));
+        }
+        update();
+        draw();
+    }*/
     requestAnimationFrame(main);
-    getCookie();
 }
 
 restart();
