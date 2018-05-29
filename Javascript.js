@@ -64,7 +64,7 @@ function restart() {
                 status: 0,
                 input: 0
             };
-            if (rows == 0) {
+            if (rows === 0) {
                 fields[rows][columns].result = getRandomNumber();
                 fields[rows][columns].input = fields[rows][columns].result;
                 fields[rows][columns].status = 1;
@@ -162,25 +162,27 @@ function drawScores() {
     ctx.fillText("Highscore:\t" + highscore, 20, canvas.height - 25);
 }
 
+//todo: nur Zahlen eingeben
 function inputMouse(e) {
     var x = e.clientX - canvas.offsetLeft;
     var y = e.clientY - canvas.offsetTop;
 
     var input;
+    //alert(x + "  " + y);
     col = countblocks;
     for (rows = 0; rows < countblocks; rows++) {
         for (columns = 0; columns < col; columns++) {
             if (x > fields[rows][columns].x && x < fields[rows][columns].x + fieldWidth) {
                 if (y > fields[rows][columns].y && y < fields[rows][columns].y + fieldHeight) {
                     input = window.prompt("Geben Sie eine Zahl ein");
-                    if (input != null && input != true) {
-                        if (isNaN(input) == false)
+                    if (input != null && input !== true) {
+                        if (isNaN(input) === false)
                             fields[rows][columns].input = Number(input);
-                        if (fields[rows][columns].input != fields[rows][columns].result) {
+                        if (fields[rows][columns].input !== fields[rows][columns].result) {
                             errors++;
                             if (score > 0)
                                 score--;
-                            if (errors == 3) {
+                            if (errors === 3) {
                                 alert("Drei Fehler! Du hast verloren :(");
                             }
                         }
@@ -200,7 +202,6 @@ function drawFields() {
             ctx.rect(fields[rows][columns].x, fields[rows][columns].y, fieldWidth, fieldHeight);
             ctx.fillStyle = "#ffa500";
             if (fields[rows][columns].status === 1) {
-                //ctx.fillStyle = "#9acd32";
                 //todo: color of solved blocks
                 ctx.fillStyle = "#9acd32";
             }
@@ -225,9 +226,9 @@ function checkResults() {
     var i = 0;
     for (rows = 0; rows < countblocks; rows++) {
         for (columns = 0; columns < col; columns++) {
-            if (fields[rows][columns].status == 0) {
+            if (fields[rows][columns].status === 0) {
                 i++;
-                if (fields[rows][columns].input == fields[rows][columns].result) {
+                if (fields[rows][columns].input === fields[rows][columns].result) {
                     fields[rows][columns].status = 1;
                     score++;
                     if (score > highscore)
@@ -237,9 +238,10 @@ function checkResults() {
         }
         col--;
     }
-    if (i == 0 && confetti == 0) {
+    if (i === 0 && confetti === 0) {
         alert('Sie sind ein Gewinner!!!');
         //confetti = 1;
+        restart();
     }
 }
 
@@ -253,10 +255,10 @@ function getCookie(highscore) {
     var ca = decodedCookie.split(';');
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) === ' ') {
             c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
             return c.substring(name.length, c.length);
         }
     }
