@@ -5,19 +5,16 @@ var ctx = canvas.getContext("2d");
 
 var countblocks = document.getElementById("countblocks").value;
 var col = countblocks;
-var fieldWidth = canvas.width / countblocks / 2;
-var fieldHeight = canvas.height / countblocks / 2;
-var blockbackground = new Image();
-blockbackground.src = 'block-background.jpeg';
-var solved = ctx.createPattern(blockbackground, "no-repeat");
+var fieldWidth;
+var fieldHeight;
+var unsolved = "#ffa500";
+var solved = "#9acd32";
+var position = canvas.width / 3;
 
 var score;
-var highscore=document.cookie;
-if (highscore=="")
-{
-    highscore==0;
-}
-
+var highscore = document.cookie;
+if (highscore == "")
+    highscore = 0;
 
 var errors;
 var maxErrors;
@@ -39,13 +36,13 @@ function init() {
     col = countblocks;
     canvas.width = window.innerWidth - 17;
     canvas.height = window.innerHeight - 17;
-    fieldWidth = canvas.width / countblocks / 2;
-    fieldHeight = canvas.height / countblocks / 2;
+    fieldWidth = canvas.width / countblocks / 1.8;
+    fieldHeight = canvas.height / countblocks / 1.8;
 
     col = countblocks;
     for (rows = 0; rows < countblocks; rows++) {
         for (columns = 0; columns < col; columns++) {
-            fields[rows][columns].x = canvas.width / 3 - (countblocks - rows) / 2 * (fieldWidth) + columns * fieldWidth;
+            fields[rows][columns].x = position - (countblocks - rows) / 2 * (fieldWidth) + columns * fieldWidth;
             fields[rows][columns].y = canvas.height / 2.3 + fieldHeight * countblocks / 3 - (fieldHeight + 3) * rows
         }
         col--;
@@ -86,7 +83,7 @@ function restart() {
 }
 
 function getRandomNumber() {
-  return Math.floor(Math.random() * ((maxNumber+1) - minNumber) + minNumber);
+    return Math.floor(Math.random() * ((maxNumber + 1) - minNumber) + minNumber);
 }
 
 //todo:
@@ -209,10 +206,10 @@ function drawFields() {
         for (columns = 0; columns < col; columns++) {
             ctx.beginPath();
             ctx.rect(fields[rows][columns].x, fields[rows][columns].y, fieldWidth, fieldHeight);
-            ctx.fillStyle = "#ffa500";
+            ctx.fillStyle = unsolved;
             if (fields[rows][columns].status === 1) {
                 //todo: color of solved blocks
-                ctx.fillStyle = "#9acd32";
+                ctx.fillStyle = solved;
             }
             ctx.lineWidth = 5;
             ctx.strokeStyle = "grey";
@@ -240,10 +237,9 @@ function checkResults() {
                 if (fields[rows][columns].input === fields[rows][columns].result) {
                     fields[rows][columns].status = 1;
                     score++;
-                    if (score > highscore)
-                    {
+                    if (score > highscore) {
                         highscore = score;
-                        document.cookie=score+"; expires=Fri, 31 Dec 2100 12:00:00 UTC";
+                        document.cookie = score + "; expires=Fri, 31 Dec 2100 12:00:00 UTC";
                     }
 
                 }
@@ -258,11 +254,29 @@ function checkResults() {
     }
 }
 
-function changeBkgrnd(src)
-{
-    document.body.style.backgroundImage="url("+src+")";
-    document.body.style.backgroundRepeat="no-repeat";
-    document.body.style.backgroundSize="cover";
+function changeBkgrnd(src) {
+    document.body.style.backgroundImage = "url(" + src + ")";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundSize = "cover";
+    if (src === "Hintergruende/Arktis.jpg") {
+        position = canvas.width / 3;
+        unsolved = "#ffa500";
+        solved = "#9acd32";
+    } else if (src === "Hintergruende/Wueste.jpg") {
+        position = canvas.width / 3;
+        unsolved = "#ffa500";
+        solved = "#9acd32";
+    }
+    else if (src === "Hintergruende/Dschungel.png") {
+        position = canvas.width / 2;
+        unsolved = "#ffa500";
+        solved = "#9acd32";
+    } else {
+        position = canvas.width / 2;
+        unsolved = "#ffa500";
+        solved = "#9acd32";
+    }
+
 }
 
 
@@ -272,7 +286,6 @@ function main() {
     drawFields();
     checkResults();
     drawScores();
-
 
 
     /*
