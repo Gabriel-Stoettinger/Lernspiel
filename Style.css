@@ -1,134 +1,84 @@
+canvas {
+    /*background-image: url("Hintergrund.jpg");*/
+    display: block;
+    margin: 0 auto;
+}
 
-        canvas {
-            /*background-image: url("Hintergrund.jpg");*/
-            display: block;
-            margin: 0 auto;
-        }
-        
-        /*Style_Christoph_startbox*/
- .position
+.position
 {
-    border-color: black;
-    border-style: solid;
-    border-width: medium;
-   
+    border: black 0px solid;
+
     width: 350px;
     height: 320px;
     position:absolute;
-   
+
     right: 0;
     top: 0;
-    
-    background-color: lightgray;
+
+    background: transparent;
     margin-top: 20px;
     margin-right: 20px;
-    
-    
 }
 
- body
- {
-     background-image: url("Hintergrund.jpg");
- }
-
+body
+{
+    background-image: url("Hintergrund.jpg");
+}
 
 /*Play_button*/
-
 .play_button
 {
-    
-    
     background-color: #4CAF50;
-    font-size: 5;
-
-   
-    
     height: 70px;
-    width: 200px;
-   
-    
-    
+    width: 180px;
+
     text-align: center;
     display: table-cell;
     vertical-align: middle;
     font-size: 30px;
-    
-    
+
     padding: 15px 25px;
-  text-align: center;
-  cursor: pointer;
-  outline: none;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  box-shadow: 0 9px #999;
-    
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 9px #999;
+
     margin-top: 10px;
-    
-    
-   
-    
+
     /*Nich markierbat*/
     -ms-user-select: None;
- -moz-user-select: None;
- -webkit-user-select: None; 
-    
-    
+    -moz-user-select: None;
+    -webkit-user-select: None;
 }
 .play_button:hover {background-color: #3e8e41}
 
 .play_button:active {
-  background-color: #3e8e41;
-  box-shadow: 0 5px grey;
-  transform: translateY(4px);
-    
-    
-    
--ms-user-select: None;
- -moz-user-select: None;
- -webkit-user-select: None; 
+    background-color: #3e8e41;
+    box-shadow: 0 5px grey;
+    transform: translateY(4px);
+
+    -ms-user-select: None;
+    -moz-user-select: None;
+    -webkit-user-select: None;
 }
-
-
-
-
 /*End_Play_button*/
 
-
 /*General Table*/
-
 table
 {
-        background-color: lightgreen;
-    
-        border-style: solid;
-        border-width: 10px;
-        border-color: grey;
-    
+    background-color: lightgreen;
+    border: grey 5px solid;
     font-size: 20px;
+    border-radius: 10px;
+    padding: 5px;
 }
-tr
-{
-    
-}
-
-td
-{
-}
-
 /*End_General Table*/
 
-
-
-
-.center
-{
-}
 input
 {
+    text-align: center;
     font-size: 20px;
-    width: 75px;
+    width: 40px;
 }
-      /*Ende Style Christoph*/  
-        
-        
