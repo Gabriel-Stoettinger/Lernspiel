@@ -1,3 +1,11 @@
+
+.WuesteBgrnd{ background-color: gold;}
+.JungelBgrnd{   background-color: lawngreen;}
+.WasserBgrnd{    background-color: deepskyblue;}
+
+
+
+
 canvas {
     /*background-image: url("Hintergrund.jpg");*/
     display: block;
