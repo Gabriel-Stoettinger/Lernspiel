@@ -12,9 +12,13 @@ blockbackground.src = 'block-background.jpeg';
 var solved = ctx.createPattern(blockbackground, "no-repeat");
 
 var score;
-var highscore = getCookie(highscore);
-if (highscore == "")
-    highscore = 0;
+var highscore=document.cookie;
+if (highscore=="")
+{
+    highscore==0;
+}
+
+
 var errors;
 
 /*var confetti;
@@ -232,7 +236,11 @@ function checkResults() {
                     fields[rows][columns].status = 1;
                     score++;
                     if (score > highscore)
+                    {
                         highscore = score;
+                        document.cookie=score+"; expires=Fri, 31 Dec 2100 12:00:00 UTC";
+                    }
+
                 }
             }
         }
@@ -244,33 +252,14 @@ function checkResults() {
         restart();
     }
 }
-
-function setCookie(highscore) {
-    document.cookie = highscore + ";path=/";
-}
-
-function getCookie(highscore) {
-    var name = highscore + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) === 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
 function main() {
+
     init();
     drawFields();
     checkResults();
-    setCookie(highscore);
     drawScores();
+
+
 
     /*
     //todo: laggy
