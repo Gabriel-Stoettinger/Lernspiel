@@ -260,23 +260,24 @@ function changeBkgrnd(src) {
     document.body.style.backgroundSize = "cover";
     if (src === "Hintergruende/Arktis.jpg") {
         position = canvas.width / 3;
-        unsolved = "#ffa500";
-        solved = "#9acd32";
+        /*unsolved = "#ffa500";
+        solved = "#9acd32";*/
+        unsolved = "#B24400";
+        solved = "#26AFB2";
     } else if (src === "Hintergruende/Wueste.jpg") {
         position = canvas.width / 3;
-        unsolved = "#ffa500";
+        unsolved = "";
         solved = "#9acd32";
     }
     else if (src === "Hintergruende/Dschungel.png") {
         position = canvas.width / 2;
-        unsolved = "#ffa500";
-        solved = "#9acd32";
+        unsolved = "#D9FF33";
+        solved = "#8129B2";
     } else {
         position = canvas.width / 2;
         unsolved = "#ffa500";
         solved = "#9acd32";
     }
-
 }
 
 
