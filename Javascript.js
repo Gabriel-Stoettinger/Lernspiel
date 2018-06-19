@@ -7,8 +7,8 @@ var countblocks = document.getElementById("countblocks").value;
 var col = countblocks;
 var fieldWidth;
 var fieldHeight;
-var unsolved = "#ffa500";
-var solved = "#9acd32";
+var unsolved = "#14c9ff";
+var solved = "#0080ff";
 var position = canvas.width / 3;
 
 var score;
@@ -262,21 +262,21 @@ function changeBkgrnd(src) {
         position = canvas.width / 3;
         /*unsolved = "#ffa500";
         solved = "#9acd32";*/
-        unsolved = "#B24400";
-        solved = "#26AFB2";
+        unsolved = "#14c9ff";
+        solved = "#0080ff";
     } else if (src === "Hintergruende/Wueste.jpg") {
         position = canvas.width / 3;
-        unsolved = "";
-        solved = "#9acd32";
+        unsolved = "#ffff44";
+        solved = "#ffb32a";
     }
     else if (src === "Hintergruende/Dschungel.png") {
         position = canvas.width / 2;
-        unsolved = "#D9FF33";
-        solved = "#8129B2";
+        unsolved = "#61ff00";
+        solved = "#009c00";
     } else {
         position = canvas.width / 2;
-        unsolved = "#ffa500";
-        solved = "#9acd32";
+        unsolved = "#c2baba";
+        solved = "#a19b99";
     }
 }
 
