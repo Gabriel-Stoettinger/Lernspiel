@@ -20,14 +20,15 @@ if (highscore=="")
 
 
 var errors;
+var maxErrors;
 
 /*var confetti;
 let pieces = [];
 let numberOfPieces = 100;
 let lastUpdateTime = Date.now();*/
 
-var minNumber = +document.getElementById("minNum").value; //= 1;
-var maxNumber = +document.getElementById("maxNum").value;
+var minNumber;
+var maxNumber;
 
 document.addEventListener("mousedown", inputMouse, false);
 
@@ -35,7 +36,6 @@ var fields = [];
 
 function init() {
     fullscreen();
-    countblocks = document.getElementById("countblocks").value;
     col = countblocks;
     canvas.width = window.innerWidth - 17;
     canvas.height = window.innerHeight - 17;
@@ -55,6 +55,10 @@ function init() {
 
 function restart() {
     //confetti = 0;
+    minNumber = +document.getElementById("minNum").value; //= 1;
+    maxNumber = +document.getElementById("maxNum").value;
+    countblocks = +document.getElementById("countblocks").value;
+    maxErrors = +document.getElementById("maxFehler").value;
     score = 0;
     errors = 0;
     col = countblocks;
@@ -82,7 +86,7 @@ function restart() {
 }
 
 function getRandomNumber() {
-    return (Math.floor((Math.random() * maxNumber)) + minNumber);
+    return Math.floor(Math.random() * (maxNumber - 1) + minNumber);
 }
 
 //todo:
@@ -186,8 +190,9 @@ function inputMouse(e) {
                             errors++;
                             if (score > 0)
                                 score--;
-                            if (errors === 3) {
-                                alert("Drei Fehler! Du hast verloren :(");
+                            if (errors === maxErrors) {
+                                alert(errors + " Fehler! Du hast verloren :(");
+                                restart();
                             }
                         }
                     }
@@ -246,7 +251,7 @@ function checkResults() {
         }
         col--;
     }
-    if (i === 0 && confetti === 0) {
+    if (i === 0 /*&& confetti === 0*/) {
         alert('Sie sind ein Gewinner!!!');
         //confetti = 1;
         restart();

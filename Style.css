@@ -11,12 +11,17 @@
     border-color: black;
     border-style: solid;
     border-width: medium;
-    
-    width: 300px;
-    height: 300px;
+   
+    width: 350px;
+    height: 320px;
     position:absolute;
+   
     right: 0;
     top: 0;
+    
+    background-color: lightgray;
+    margin-top: 20px;
+    margin-right: 20px;
     
     
 }
@@ -31,6 +36,7 @@
 
 .play_button
 {
+    
     
     background-color: #4CAF50;
     font-size: 5;
@@ -57,8 +63,10 @@
   border-radius: 25px;
   box-shadow: 0 9px #999;
     
+    margin-top: 10px;
     
     
+   
     
     /*Nich markierbat*/
     -ms-user-select: None;
@@ -71,8 +79,10 @@
 
 .play_button:active {
   background-color: #3e8e41;
-  box-shadow: 0 5px #666;
+  box-shadow: 0 5px grey;
   transform: translateY(4px);
+    
+    
     
 -ms-user-select: None;
  -moz-user-select: None;
@@ -89,11 +99,11 @@
 
 table
 {
-        background-color: aliceblue;
+        background-color: lightgreen;
     
         border-style: solid;
-        border-width: 15px;
-        border-color: blue;
+        border-width: 10px;
+        border-color: grey;
     
     font-size: 20px;
 }
