@@ -7,8 +7,9 @@ var countblocks = document.getElementById("countblocks").value;
 var col = countblocks;
 var fieldWidth;
 var fieldHeight;
-var unsolved = "#14c9ff";
-var solved = "#0080ff";
+var currentTheme = "Arktis";
+var unsolved = "#ffa500";
+var solved = "#9acd32";
 var position = canvas.width / 3;
 
 var score;
@@ -154,17 +155,29 @@ function randomColor() {
 //Ende Confetti
 
 function drawScores() {
-    ctx.font = "16px Verdana";
-    ctx.fillStyle = "#000000";
-    ctx.fillText("Score:\t" + score, 20, canvas.height - 75);
+    if(currentTheme === "Dschungel")
+    {
+        ctx.beginPath();
+        ctx.rect(0, 0, fieldWidth, fieldHeight);
+        ctx.fillStyle = "#C9FFC7";
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "grey";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+    }
 
     ctx.font = "16px Verdana";
     ctx.fillStyle = "#000000";
-    ctx.fillText("Errors:\t" + errors, 20, canvas.height - 50);
+    ctx.fillText("Score:\t" + score, 20, /*canvas.height - */25);
 
     ctx.font = "16px Verdana";
     ctx.fillStyle = "#000000";
-    ctx.fillText("Highscore:\t" + highscore, 20, canvas.height - 25);
+    ctx.fillText("Errors:\t" + errors, 20, /*canvas.height - */75);
+
+    ctx.font = "16px Verdana";
+    ctx.fillStyle = "#000000";
+    ctx.fillText("Highscore:\t" + highscore, 20, /*canvas.height - */50);
 }
 
 //todo: nur Zahlen eingeben
@@ -259,28 +272,32 @@ function changeBkgrnd(src) {
     document.body.style.backgroundRepeat = "no-repeat";
     document.body.style.backgroundSize = "cover";
     if (src === "Hintergruende/Arktis.jpg") {
+        currentTheme = "Arktis";
         position = canvas.width / 3;
         /*unsolved = "#ffa500";
         solved = "#9acd32";*/
-        unsolved = "#14c9ff";
-        solved = "#0080ff";
+        unsolved = "#B24400";
+        solved = "#26AFB2";
     } else if (src === "Hintergruende/Wueste.jpg") {
+        currentTheme = "Wueste";
         position = canvas.width / 3;
-        unsolved = "#ffff44";
-        solved = "#ffb32a";
+        unsolved = "";
+        solved = "#9acd32";
     }
     else if (src === "Hintergruende/Dschungel.png") {
+        currentTheme = "Dschungel";
         position = canvas.width / 2;
-        unsolved = "#61ff00";
-        solved = "#009c00";
+        unsolved = "#D9FF33";
+        solved = "#8129B2";
     } else {
+        currentTheme = "Berge";
         position = canvas.width / 2;
-        unsolved = "#c2baba";
-        solved = "#a19b99";
+        unsolved = "#ffa500";
+        solved = "#9acd32";
     }
 }
 
-//faben
+
 function main() {
 
     init();
