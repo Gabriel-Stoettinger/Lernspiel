@@ -2,11 +2,7 @@
 h1
 {
     text-align: center;
-    border-style: solid;
-    
-    border-top: 5px;
-    border-color: black;
-    
+    border: black 5px solid;
 }
 body
 {
