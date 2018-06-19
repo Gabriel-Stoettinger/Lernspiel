@@ -7,8 +7,9 @@ var countblocks = document.getElementById("countblocks").value;
 var col = countblocks;
 var fieldWidth;
 var fieldHeight;
-var unsolved = "#14c9ff";
-var solved = "#0080ff";
+var currentTheme = "Arktis";
+var unsolved = "#ffa500";
+var solved = "#9acd32";
 var position = canvas.width / 3;
 
 var score;
@@ -154,17 +155,29 @@ function randomColor() {
 //Ende Confetti
 
 function drawScores() {
-    ctx.font = "16px Verdana";
-    ctx.fillStyle = "#000000";
-    ctx.fillText("Score:\t" + score, 20, canvas.height - 75);
+    if(currentTheme === "Dschungel")
+    {
+        ctx.beginPath();
+        ctx.rect(0, 0, fieldWidth, fieldHeight);
+        ctx.fillStyle = "#C9FFC7";
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "grey";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+    }
 
     ctx.font = "16px Verdana";
     ctx.fillStyle = "#000000";
-    ctx.fillText("Errors:\t" + errors, 20, canvas.height - 50);
+    ctx.fillText("Score:\t" + score, 20, /*canvas.height - */25);
 
     ctx.font = "16px Verdana";
     ctx.fillStyle = "#000000";
-    ctx.fillText("Highscore:\t" + highscore, 20, canvas.height - 25);
+    ctx.fillText("Errors:\t" + errors, 20, /*canvas.height - */75);
+
+    ctx.font = "16px Verdana";
+    ctx.fillStyle = "#000000";
+    ctx.fillText("Highscore:\t" + highscore, 20, /*canvas.height - */50);
 }
 
 //todo: nur Zahlen eingeben
@@ -280,7 +293,7 @@ function changeBkgrnd(src) {
     }
 }
 
-//fabene
+//faben
 function main() {
 
     init();
