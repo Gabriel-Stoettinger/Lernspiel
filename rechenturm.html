@@ -5,13 +5,13 @@
     <meta charset="utf-8"/>
     <title>Rechenturm</title>
 </head>
-<body>
+<body id="Backgrnd">
 <div class="position" >
     <div  align="center">
         <table>
 
             <tr><p class="play_button"onclick="restart();">PLAY</p><br></tr>
-            <!--<tr><br></tr>-->
+            <tr><br></tr>
             <tr><td>Blockanzahl:</td>
                 <td><input type="number"  min="2" max="10" value="5" id="countblocks"></td>
             </tr>
@@ -29,6 +29,12 @@
                 <td><input type="number" value="3" min="1" id="maxFehler"></td>
 
             </tr>
+            
+            <tr>
+        <input type="button" onclick="changeBkgrnd('Hintergruende/Wueste.jpg')" class="WuesteBgrnd" value="Wüste">
+        <input type="button" onclick="changeBkgrnd('Hintergruende/Wasser.jpg')" class="WasserBgrnd" value="Wasser">
+        <input type="button" onclick="changeBkgrnd('Hintergruende/Jungel.jpg')" class="JungelBgrnd" value="Jungel">
+          </tr>
         </table></div></div>
 
 <canvas id="myCanvas" width="720" height="480"></canvas>

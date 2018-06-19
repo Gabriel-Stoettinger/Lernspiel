@@ -257,6 +257,15 @@ function checkResults() {
         restart();
     }
 }
+
+function changeBkgrnd(src)
+{
+    document.body.style.backgroundImage="url("+src+")";
+    document.body.style.backgroundRepeat="no-repeat";
+    document.body.style.backgroundSize="cover";
+}
+
+
 function main() {
 
     init();
