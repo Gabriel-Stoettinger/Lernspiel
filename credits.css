@@ -2,12 +2,23 @@
 h1
 {
     text-align: center;
-    border: black 5px solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: solid;
+    
+    
+    border-top: 5px;
+    border-color: black;
+    
 }
 body
 {
     font-size: 30.5px;
-    background-color: lightgray;
+    
+    background-image: url(creditsBackground.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
     
     
 }
@@ -30,4 +41,14 @@ float: right;
     position: absolute;
     margin-top: -30px;
     
+}
+.itlogo
+{
+    position: absolute;
+    margin-top: -30px;
+    margin-left: 100px;
+}
+.button
+{
+    font-size: 24px;
 }
