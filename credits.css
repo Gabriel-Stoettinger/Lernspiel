@@ -1,53 +1,48 @@
-
 h1
 {
     text-align: center;
     border-bottom-style: solid;
     border-left-style: solid;
     border-right-style: solid;
-    
-    
+
     border-top: 5px;
     border-color: black;
-    
 }
+
 body
 {
     font-size: 30.5px;
-    
-    background-image: url(creditsBackground.jpg);
-    background-repeat: no-repeat;
+    background-image: url(creditsBackground.jpg) no-repeat;
     background-size: cover;
-    
-    
-    
 }
+
 table
 {
-    
     text-align: center;
     margin-left: 200px;
 }
+
 img
 {
     margin-top: 60px;
     margin-right: 50px;
-float: right;
+    float: right;
     width: auto;
-
 }
+
 .htllogo
 {
     position: absolute;
     margin-top: -30px;
-    
 }
+
 .itlogo
 {
     position: absolute;
     margin-top: -30px;
     margin-left: 100px;
 }
+
 .button
 {
     font-size: 24px;

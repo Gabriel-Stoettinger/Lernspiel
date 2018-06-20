@@ -6,47 +6,33 @@
     <title>Rechenturm</title>
 </head>
 <body id="Backgrnd">
-<div class="position" >
-    <div  align="center">
+<div class="position">
+    <div align="center">
         <table>
+            <!-- Play Button -->
+            <tr>    <p class="play_button" onclick="restart();">PLAY</p><br>    </tr>
+            <!-- Einstellungen -->
+            <tr>    <td>Blockanzahl:</td>   <td><input type="number" min="2" max="10" value="5" id="countblocks"></td>              </tr>
+            <tr>    <td>kleinste Zahl:</td> <td><input type="number" min="1" max="30" value="1" id="minNum"></td>                   </tr>
+            <tr>    <td>größte Zahl:</td>   <td><input type="number" min="2" max="50" value="9" id="maxNum"></td>                   </tr>
+            <tr>    <td>Fehleranzahl:</td>  <td><input type="number" value="3" min="1" id="maxFehler"></td>                         </tr>
+            <!-- Background Buttons -->
+            <tr>    <input type="button" onclick="changeBkgrnd('Hintergruende/Wueste.jpg')" class="WuesteBgrnd" value="Wüste">
+                    <input type="button" onclick="changeBkgrnd('Hintergruende/Arktis.jpg')" class="ArktisBgrnd" value="Arktis">     </tr><br>
+            <tr>    <input type="button" onclick="changeBkgrnd('Hintergruende/Dschungel.png')" class="JungelBgrnd" value="Dschungel">
+                    <input type="button" onclick="changeBkgrnd('Hintergruende/Alpen.png')" class="BergeBgrnd" value="Berge">        </tr>
+        </table>
 
-            <tr><p class="play_button"onclick="restart();">PLAY</p><br></tr>
-            <tr><td>Blockanzahl:</td>
-                <td><input type="number"  min="2" max="10" value="5" id="countblocks"></td>
-            </tr>
-
-            <tr>
-                <td>kleinste Zahl: <!-- min number?--></td>
-                <td><input type="number" min="1" max="30" value="1" id="minNum"></td>
-            </tr>
-            <tr>
-                <td>größte Zahl:</td>
-                <td><input type="number" min="2" max="50" value="9" id="maxNum"></td>
-            </tr>
-            <tr>
-                <td>Fehleranzahl: </td>
-                <td><input type="number" value="3" min="1" id="maxFehler"></td>
-
-            </tr>
-            
-            <tr>
-        <input type="button" onclick="changeBkgrnd('Hintergruende/Wueste.jpg')" class="WuesteBgrnd" value="Wüste">
-        <input type="button" onclick="changeBkgrnd('Hintergruende/Arktis.jpg')" class="ArktisBgrnd" value="Arktis">
-           </tr>
-            <br>
-            <tr> 
-        <input type="button" onclick="changeBkgrnd('Hintergruende/Dschungel.png')" class="JungelBgrnd" value="Dschungel">   
-        <input type="button" onclick="changeBkgrnd('Hintergruende/Alpen.png')" class="BergeBgrnd" value="Berge">
-          </tr>
-        </table><div align="bottom">
-
-        
-<button class="button" onclick="window.location.href='credits.html'">
-	credits
-	<div class="button__horizontal"></div>
-	<div class="button__vertical"></div>
-</button>          </div></div></div>
-   
+        <!-- Credits Button -->
+        <div align="bottom">
+            <button class="button" onclick="window.location.href='credits.html'">
+                credits
+                <div class="button__horizontal"></div>
+                <div class="button__vertical"></div>
+            </button>
+        </div>
+    </div>
+</div>
 
 <canvas id="myCanvas" width="720" height="480"></canvas>
 <script language="javascript" type="text/javascript" src="Javascript.js"></script>
