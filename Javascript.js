@@ -3,6 +3,9 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var ctx = canvas.getContext("2d");
 
+var elmin = document.getElementById("minNum");
+var elmax = document.getElementById("maxNum");
+
 var countblocks = document.getElementById("countblocks").value;
 var col = countblocks;
 var fieldWidth;
