@@ -12,7 +12,8 @@ h1
 body
 {
     font-size: 30.5px;
-    background-image: url(creditsBackground.jpg) no-repeat;
+    background-image: url(creditsBackground.jpg) ;
+    background-repeat:  no-repeat;
     background-size: cover;
 }
 
