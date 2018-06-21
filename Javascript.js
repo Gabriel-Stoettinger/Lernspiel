@@ -33,7 +33,6 @@ document.addEventListener("mousedown", inputMouse, false);
 var fields = [];
 
 function init() {
-    fullscreen();
     col = countblocks;
     canvas.width = window.innerWidth - 17;
     canvas.height = window.innerHeight - 17;
@@ -83,17 +82,161 @@ function restart() {
     col = countblocks;
 }
 
-function getRandomNumber() {
-    return Math.floor(Math.random() * ((maxNumber + 1) - minNumber) + minNumber);
+function inputMouse(e) {
+    var x = e.clientX - canvas.offsetLeft;
+    var y = e.clientY - canvas.offsetTop;
+
+    col = countblocks;
+    for (rows = 0; rows < countblocks; rows++) {
+        for (columns = 0; columns < col; columns++) {
+            if (x > fields[rows][columns].x && x < fields[rows][columns].x + fieldWidth) {
+                if (y > fields[rows][columns].y && y < fields[rows][columns].y + fieldHeight) {
+                    var input = window.prompt("Geben Sie eine Zahl ein");
+                    if (input != null && input !== true) {
+                        if (isNaN(input) === false)
+                            fields[rows][columns].input = Number(input);
+                        if (fields[rows][columns].input !== fields[rows][columns].result) {
+                            errors++;
+                            if (score > 0)
+                                score--;
+                            if (errors === maxErrors) {
+                                alert(errors + " Fehler! Du hast verloren :(");
+                                restart();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        col--;
+    }
+}
+
+function drawFields() {
+    col = countblocks;
+    for (rows = 0; rows < countblocks; rows++) {
+        for (columns = 0; columns < col; columns++) {
+            ctx.beginPath();
+            ctx.rect(fields[rows][columns].x, fields[rows][columns].y, fieldWidth, fieldHeight);
+            ctx.fillStyle = unsolved;
+            if (fields[rows][columns].status === 1) {
+                ctx.fillStyle = solved;
+            }
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = "grey";
+            ctx.stroke();
+            ctx.fill();
+            ctx.closePath();
+
+            if (fields[rows][columns].input !== 0) {
+                ctx.font = "16px Verdana";
+                ctx.fillStyle = "#000000";
+                ctx.fillText(fields[rows][columns].input, fields[rows][columns].x + fieldWidth / 2 - 4, fields[rows][columns].y + fieldHeight / 2 + 8);
+            }
+        }
+        col--;
+    }
 }
 
 //todo:
-function fullscreen() {
+function drawScores() {
+    if (currentTheme === "Dschungel") {
+        ctx.beginPath();
+        ctx.rect(0, 0, fieldWidth, fieldHeight);
+        ctx.fillStyle = "#C9FFC7";
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = "grey";
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    ctx.font = "16px Verdana";
+    ctx.fillStyle = "#000000";
+    ctx.fillText("Score:\t" + score, 20, /*canvas.height - */25);
+
+    ctx.font = "16px Verdana";
+    ctx.fillStyle = "#000000";
+    ctx.fillText("Errors:\t" + errors, 20, /*canvas.height - */75);
+
+    ctx.font = "16px Verdana";
+    ctx.fillStyle = "#000000";
+    ctx.fillText("Highscore:\t" + highscore, 20, /*canvas.height - */50);
 }
 
-function randomColor() {
-    let colors = ['#f00', '#0f0', '#00f', '#0ff', '#f0f', '#ff0'];
-    return colors[Math.floor(Math.random() * colors.length)];
+function checkResults() {
+    col = countblocks;
+    var i = 0;
+    for (rows = 0; rows < countblocks; rows++) {
+        for (columns = 0; columns < col; columns++) {
+            if (fields[rows][columns].status === 0) {
+                i++;
+                if (fields[rows][columns].input === fields[rows][columns].result) {
+                    fields[rows][columns].status = 1;
+                    score++;
+                    if (score > highscore) {
+                        highscore = score;
+                        document.cookie = score + "; expires=Fri, 31 Dec 2100 12:00:00 UTC";
+                    }
+                }
+            }
+        }
+        col--;
+    }
+    if (i === 0 /*&& confetti === 0*/) {
+        alert('Sie sind ein Gewinner!!!');
+        //confetti = 1;
+        restart();
+    }
+}
+
+function main() {
+    init();
+    drawFields();
+    checkResults();
+    drawScores();
+    /* //todo: laggy
+    if (confetti) {
+        while (pieces.length < numberOfPieces) {
+            pieces.push(new Piece(Math.random() * canvas.width, Math.random() * canvas.height));
+        }
+        update();
+        draw();
+    }*/
+    requestAnimationFrame(main);
+}
+
+restart();
+main();
+
+function changeBkgrnd(src) {
+    document.body.style.backgroundImage = "url(" + src + ")";
+    document.body.style.backgroundRepeat = "no-repeat";
+    document.body.style.backgroundSize = "cover";
+    if (src === "Hintergruende/Arktis.jpg") {
+        position = canvas.width / 3;
+        /*unsolved = "#ffa500";
+        solved = "#9acd32";*/
+        unsolved = "#14c9ff";
+        solved = "#0080ff";
+    } else if (src === "Hintergruende/Wueste.jpg") {
+        position = canvas.width / 3;
+        unsolved = "#ffff44";
+        solved = "#ffb32a";
+    }
+    else if (src === "Hintergruende/Dschungel.png") {
+        position = canvas.width / 2;
+        unsolved = "#61ff00";
+        solved = "#009c00";
+    } else {
+        position = canvas.width / 2;
+        unsolved = "#c2baba";
+        solved = "#a19b99";
+    }
+}
+
+function getRandomNumber() {
+    return Math.floor(Math.random() * ((maxNumber + 1) - minNumber) + minNumber);
 }
 
 //todo:Confetti
@@ -153,166 +296,3 @@ function randomColor() {
 }*/
 
 //Ende Confetti
-
-function drawScores() {
-    if(currentTheme === "Dschungel")
-    {
-        ctx.beginPath();
-        ctx.rect(0, 0, fieldWidth, fieldHeight);
-        ctx.fillStyle = "#C9FFC7";
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = "grey";
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
-    }
-
-    ctx.font = "16px Verdana";
-    ctx.fillStyle = "#000000";
-    ctx.fillText("Score:\t" + score, 20, /*canvas.height - */25);
-
-    ctx.font = "16px Verdana";
-    ctx.fillStyle = "#000000";
-    ctx.fillText("Errors:\t" + errors, 20, /*canvas.height - */75);
-
-    ctx.font = "16px Verdana";
-    ctx.fillStyle = "#000000";
-    ctx.fillText("Highscore:\t" + highscore, 20, /*canvas.height - */50);
-}
-
-//todo: nur Zahlen eingeben
-function inputMouse(e) {
-    var x = e.clientX - canvas.offsetLeft;
-    var y = e.clientY - canvas.offsetTop;
-
-    var input;
-    //alert(x + "  " + y);
-    col = countblocks;
-    for (rows = 0; rows < countblocks; rows++) {
-        for (columns = 0; columns < col; columns++) {
-            if (x > fields[rows][columns].x && x < fields[rows][columns].x + fieldWidth) {
-                if (y > fields[rows][columns].y && y < fields[rows][columns].y + fieldHeight) {
-                    input = window.prompt("Geben Sie eine Zahl ein");
-                    if (input != null && input !== true) {
-                        if (isNaN(input) === false)
-                            fields[rows][columns].input = Number(input);
-                        if (fields[rows][columns].input !== fields[rows][columns].result) {
-                            errors++;
-                            if (score > 0)
-                                score--;
-                            if (errors === maxErrors) {
-                                alert(errors + " Fehler! Du hast verloren :(");
-                                restart();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        col--;
-    }
-}
-
-function drawFields() {
-    col = countblocks;
-    for (rows = 0; rows < countblocks; rows++) {
-        for (columns = 0; columns < col; columns++) {
-            ctx.beginPath();
-            ctx.rect(fields[rows][columns].x, fields[rows][columns].y, fieldWidth, fieldHeight);
-            ctx.fillStyle = unsolved;
-            if (fields[rows][columns].status === 1) {
-                //todo: color of solved blocks
-                ctx.fillStyle = solved;
-            }
-            ctx.lineWidth = 5;
-            ctx.strokeStyle = "grey";
-            ctx.stroke();
-            ctx.fill();
-            ctx.closePath();
-
-            if (fields[rows][columns].input !== 0) {
-                ctx.font = "16px Verdana";
-                ctx.fillStyle = "#000000";
-                ctx.fillText(fields[rows][columns].input, fields[rows][columns].x + fieldWidth / 2 - 4, fields[rows][columns].y + fieldHeight / 2 + 8);
-            }
-        }
-        col--;
-    }
-}
-
-function checkResults() {
-    col = countblocks;
-    var i = 0;
-    for (rows = 0; rows < countblocks; rows++) {
-        for (columns = 0; columns < col; columns++) {
-            if (fields[rows][columns].status === 0) {
-                i++;
-                if (fields[rows][columns].input === fields[rows][columns].result) {
-                    fields[rows][columns].status = 1;
-                    score++;
-                    if (score > highscore) {
-                        highscore = score;
-                        document.cookie = score + "; expires=Fri, 31 Dec 2100 12:00:00 UTC";
-                    }
-
-                }
-            }
-        }
-        col--;
-    }
-    if (i === 0 /*&& confetti === 0*/) {
-        alert('Sie sind ein Gewinner!!!');
-        //confetti = 1;
-        restart();
-    }
-}
-
-function changeBkgrnd(src) {
-    document.body.style.backgroundImage = "url(" + src + ")";
-    document.body.style.backgroundRepeat = "no-repeat";
-    document.body.style.backgroundSize = "cover";
-    if (src === "Hintergruende/Arktis.jpg") {
-        position = canvas.width / 3;
-        /*unsolved = "#ffa500";
-        solved = "#9acd32";*/
-        unsolved = "#14c9ff";
-        solved = "#0080ff";
-    } else if (src === "Hintergruende/Wueste.jpg") {
-        position = canvas.width / 3;
-        unsolved = "#ffff44";
-        solved = "#ffb32a";
-    }
-    else if (src === "Hintergruende/Dschungel.png") {
-        position = canvas.width / 2;
-        unsolved = "#61ff00";
-        solved = "#009c00";
-    } else {
-        position = canvas.width / 2;
-        unsolved = "#c2baba";
-        solved = "#a19b99";
-    }
-}
-
-//fabenbb
-function main() {
-
-    init();
-    drawFields();
-    checkResults();
-    drawScores();
-
-
-    /*
-    //todo: laggy
-    if (confetti) {
-        while (pieces.length < numberOfPieces) {
-            pieces.push(new Piece(Math.random() * canvas.width, Math.random() * canvas.height));
-        }
-        update();
-        draw();
-    }*/
-    requestAnimationFrame(main);
-}
-
-restart();
-main();
