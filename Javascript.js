@@ -50,6 +50,15 @@ function init() {
     col = countblocks;
 }
 
+function limitMin() 
+{
+    elmin.setAttribute("max",elmax.value)
+}
+function limitMax() 
+{
+    elmax.setAttribute("min",elmin.value)
+}
+
 function restart() {
     //confetti = 0;
     minNumber = +document.getElementById("minNum").value; //= 1;
@@ -59,6 +68,10 @@ function restart() {
     score = 0;
     errors = 0;
     col = countblocks;
+    
+    elmax.onchange=limitMin;//Min nicht größer als Max
+    elmin.onchange=limitMax;//Min nicht größer als Max
+    
     for (rows = 0; rows < countblocks; rows++) {
         fields[rows] = [];
         for (columns = 0; columns < col; columns++) {
