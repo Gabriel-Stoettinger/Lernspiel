@@ -131,7 +131,7 @@ function onmouseUp(e) {
         if (y > 0 && y < 100)
             suda++;
     if (suda >= 2)
-        document.empty.src = "besteFachrichtung.png";
+        document.empty.src = "bestteSchule.png";
 }
 
 function drawFields() {
