@@ -1,39 +1,43 @@
-var canvas = document.getElementById("myCanvas");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-var ctx = canvas.getContext("2d");
+if (document.title === "Rechenturm") {
+    var canvas = document.getElementById("myCanvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var ctx = canvas.getContext("2d");
 
-var elmin = document.getElementById("minNum");
-var elmax = document.getElementById("maxNum");
+    var countblocks = document.getElementById("countblocks").value;
+    var col = countblocks;
+    var fieldWidth;
+    var fieldHeight;
+    var currentTheme = "Arktis";
+    var unsolved = "#ffa500";
+    var solved = "#9acd32";
+    var position = canvas.width / 3;
 
-var countblocks = document.getElementById("countblocks").value;
-var col = countblocks;
-var fieldWidth;
-var fieldHeight;
-var currentTheme = "Arktis";
-var unsolved = "#ffa500";
-var solved = "#9acd32";
-var position = canvas.width / 3;
+    var score;
+    var highscore = document.cookie;
+    if (highscore == "")
+        highscore = 0;
 
-var score;
-var highscore = document.cookie;
-if (highscore == "")
-    highscore = 0;
+    var errors;
+    var maxErrors;
 
-var errors;
-var maxErrors;
+    /*var confetti;
+    let pieces = [];
+    let numberOfPieces = 100;
+    let lastUpdateTime = Date.now();*/
 
-/*var confetti;
-let pieces = [];
-let numberOfPieces = 100;
-let lastUpdateTime = Date.now();*/
+    var elmin = document.getElementById("minNum");
+    var elmax = document.getElementById("maxNum");
+    var minNumber;
+    var maxNumber;
+    var fields = [];
 
-var minNumber;
-var maxNumber;
-
-document.addEventListener("mousedown", inputMouse, false);
-
-var fields = [];
+    document.addEventListener("mousedown", inputMouse, false);
+}
+else if (document.title === "Credits") {
+    var suda = 0;
+    document.addEventListener("mouseup", onmouseUp, false);
+}
 
 function init() {
     col = countblocks;
@@ -53,17 +57,10 @@ function init() {
     col = countblocks;
 }
 
-function limitMin() 
-{
-    elmin.setAttribute("max",elmax.value)
-}
-function limitMax() 
-{
-    elmax.setAttribute("min",elmin.value)
-}
-
 function restart() {
     //confetti = 0;
+    elmax.onchange = limitMin;//Min nicht größer als Max
+    elmin.onchange = limitMax;//Min nicht größer als Max
     minNumber = +document.getElementById("minNum").value; //= 1;
     maxNumber = +document.getElementById("maxNum").value;
     countblocks = +document.getElementById("countblocks").value;
@@ -71,10 +68,6 @@ function restart() {
     score = 0;
     errors = 0;
     col = countblocks;
-    
-    elmax.onchange=limitMin;//Min nicht größer als Max
-    elmin.onchange=limitMax;//Min nicht größer als Max
-    
     for (rows = 0; rows < countblocks; rows++) {
         fields[rows] = [];
         for (columns = 0; columns < col; columns++) {
@@ -99,33 +92,46 @@ function restart() {
 }
 
 function inputMouse(e) {
-    var x = e.clientX - canvas.offsetLeft;
-    var y = e.clientY - canvas.offsetTop;
+    if (document.title === "Rechenturm") {
+        var x = e.clientX - canvas.offsetLeft;
+        var y = e.clientY - canvas.offsetTop;
 
-    col = countblocks;
-    for (rows = 0; rows < countblocks; rows++) {
-        for (columns = 0; columns < col; columns++) {
-            if (x > fields[rows][columns].x && x < fields[rows][columns].x + fieldWidth) {
-                if (y > fields[rows][columns].y && y < fields[rows][columns].y + fieldHeight) {
-                    var input = window.prompt("Geben Sie eine Zahl ein");
-                    if (input != null && input !== true) {
-                        if (isNaN(input) === false)
-                            fields[rows][columns].input = Number(input);
-                        if (fields[rows][columns].input !== fields[rows][columns].result) {
-                            errors++;
-                            if (score > 0)
-                                score--;
-                            if (errors === maxErrors) {
-                                alert(errors + " Fehler! Du hast verloren :(");
-                                restart();
+        col = countblocks;
+        for (rows = 0; rows < countblocks; rows++) {
+            for (columns = 0; columns < col; columns++) {
+                if (x > fields[rows][columns].x && x < fields[rows][columns].x + fieldWidth) {
+                    if (y > fields[rows][columns].y && y < fields[rows][columns].y + fieldHeight) {
+                        var input = window.prompt("Geben Sie eine Zahl ein");
+                        if (input != null && input !== true) {
+                            if (isNaN(input) === false)
+                                fields[rows][columns].input = Number(input);
+                            if (fields[rows][columns].input !== fields[rows][columns].result) {
+                                errors++;
+                                if (score > 0)
+                                    score--;
+                                if (errors === maxErrors) {
+                                    alert(errors + " Fehler! Du hast verloren :(");
+                                    restart();
+                                }
                             }
                         }
                     }
                 }
             }
+            col--;
         }
-        col--;
     }
+}
+
+function onmouseUp(e) {
+    var x = e.clientX;
+    var y = e.clientY;
+
+    if (x < 200 && x > 0)
+        if (y > 0 && y < 100)
+            suda++;
+    if (suda >= 2)
+        document.empty.src = "besteFachrichtung.png";
 }
 
 function drawFields() {
@@ -219,11 +225,14 @@ function main() {
         update();
         draw();
     }*/
+
     requestAnimationFrame(main);
 }
 
-restart();
-main();
+if (document.title === "Rechenturm") {
+    restart();
+    main();
+}
 
 function changeBkgrnd(src) {
     document.body.style.backgroundImage = "url(" + src + ")";
@@ -249,6 +258,14 @@ function changeBkgrnd(src) {
         unsolved = "#c2baba";
         solved = "#a19b99";
     }
+}
+
+function limitMin() {
+    elmin.setAttribute("max", elmax.value)
+}
+
+function limitMax() {
+    elmax.setAttribute("min", elmin.value)
 }
 
 function getRandomNumber() {
